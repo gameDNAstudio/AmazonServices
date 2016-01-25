@@ -140,6 +140,16 @@ public:
 		return NULL;
 	}
 
+	virtual IOnlineStoreV2Ptr GetStoreV2Interface() const override
+	{
+		return NULL;
+	}
+
+	virtual IOnlinePurchasePtr GetPurchaseInterface() const override
+	{
+		return NULL;
+	}
+
 	virtual bool Init() override;
 	virtual bool Shutdown() override;
 	virtual FString GetAppId() const override;

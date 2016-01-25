@@ -30,7 +30,7 @@ namespace UnrealBuildTool.Rules
 			);
 
 			// Get Settings from Config Cache
-			ConfigCacheIni Ini = new ConfigCacheIni(Target.Platform, "Engine", UnrealBuildTool.GetUProjectPath());
+			ConfigCacheIni Ini = ConfigCacheIni.CreateConfigCacheIni(Target.Platform, "Engine", new DirectoryReference(Path.GetFullPath(Path.Combine(ModuleDirectory, "../../../../"))));
 			bool bEnableAmazonSupport = false;
 			if (!Ini.GetBool("/Script/AndroidRuntimeSettings.AndroidRuntimeSettings", "bEnableAmazonSupport", out bEnableAmazonSupport))
 			{

@@ -4,7 +4,6 @@
 
 #include "AmazonServicesPCH.h"
 #include "TaskGraphInterfaces.h"
-#include "OnlineAsyncTaskAmazonServicesQueryInAppPurchases.h"
 
 #if PLATFORM_ANDROID
 #include "Android/AndroidJNI.h"
