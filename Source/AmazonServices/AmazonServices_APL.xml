@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Amazon Services Plugin
+    Created by Patryk Stepniewski
+    Copyright (c) 2014-2016 gameDNA studio. All Rights Reserved.
+-->
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+  <init>
+	<log text="AmazonServices init"/>
+  </init>
+
+  <proguardAdditions>
+	<insert>
+	  ########################################################################################## Amazon
+	  -dontwarn com.amazon.**
+	  -keep class com.amazon.** {*;}
+	</insert>
+  </proguardAdditions>
+
+  <resourceCopies>
+	<copyDir src="$S(PluginDir)/../../ThirdPartyLibraries/Android"
+					dst="$S(BuildDir)" />
+  </resourceCopies>
+
+  <gameActivityImportAdditions>
+	<insert>
+	  // Amazon
+	  import com.amazon.AmazonIapManager;
+	  import com.amazon.AmazonPurchasingListener;
+	  import com.amazon.device.iap.PurchasingService;
+	  import java.util.Arrays;
+	  import java.util.HashSet;
+	</insert>
+  </gameActivityImportAdditions>
+
+  <androidManifestUpdates>
+	<addElements tag="application">
+	  <!-- Amazon -->
+	  <receiver android:name="com.amazon.device.iap.ResponseReceiver">
+		<intent-filter>
+		  <action android:name="com.amazon.inapp.purchasing.NOTIFY"
+			  android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY"/>
+		</intent-filter>
+	  </receiver>
+	</addElements>
+  </androidManifestUpdates>
+
+  <gameActivityClassAdditions>
+	<insert>
+	  /** Amazon */
+	  private AmazonIapManager AmazonManager;
+
+	  // In app purchase Amazon functionality
+	  public void AndroidThunkJava_IapSetupServiceAmazon()
+	  {
+		  Log.debug("[JAVA] - AndroidThunkJava_IapSetupServiceAmazon");
+		  AmazonManager = new AmazonIapManager(this);
+		  final AmazonPurchasingListener amazonPurchasingListener = new AmazonPurchasingListener(AmazonManager);
+		  PurchasingService.registerListener(this.getApplicationContext(), amazonPurchasingListener);
+		  if( AmazonManager == null )
+		  {
+			  Log.debug("[JAVA] - Amazon Manager is invalid");
+		  }
+	  }
+
+	  public boolean AndroidThunkJava_IapQueryInAppPurchasesAmazon(String[] ProductIDs, boolean[] bConsumable)
+	  {
+		  Log.debug("[JAVA] - AndroidThunkJava_IapQueryInAppPurchasesAmazon");
+		  final String[] CachedQueryProductIDsAmazon = ProductIDs;
+		  final boolean[] CachedQueryConsumablesAmazon = bConsumable;
+
+		  boolean bTriggeredQuery = true;
+		  _activity.runOnUiThread(new Runnable()
+		  {
+			  @Override
+			  public void run()
+			  {
+				  PurchasingService.getProductData(new HashSet&lt;String&gt;(Arrays.asList(CachedQueryProductIDsAmazon)));
+			  }
+		  });
+
+		  return bTriggeredQuery;
+	  }
+
+	  public boolean AndroidThunkJava_IapBeginPurchaseAmazon(String ProductId, boolean bConsumable)
+	  {
+		  Log.debug("[JAVA] - AndroidThunkJava_IapBeginPurchaseAmazon");
+		  boolean bTriggeredPurchase = true;
+		  PurchasingService.purchase(ProductId);
+		  return bTriggeredPurchase;
+	  }
+
+	  public boolean AndroidThunkJava_IapIsAllowedToMakePurchasesAmazon()
+	  {
+		  Log.debug("[JAVA] - AndroidThunkJava_IapIsAllowedToMakePurchasesAmazon");
+		  boolean bIsAllowedToMakePurchase = false;
+		  if( AmazonManager != null )
+		  {
+			  bIsAllowedToMakePurchase = true;
+		  }
+		  else
+		  {
+			  Log.debug("[JAVA] - Amazon Manager is invalid");
+		  }
+		  return bIsAllowedToMakePurchase;
+	  }
+	</insert>
+  </gameActivityClassAdditions>
+</root>

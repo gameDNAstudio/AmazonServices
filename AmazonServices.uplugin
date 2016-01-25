@@ -1,0 +1,25 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "Amazon Services",
+  "Description": "Amazon Services for Android games",
+  "Category": "Networking",
+  "CreatedBy": "gameDNA studio",
+  "CreatedByURL": "http://gamednastudio.com",
+  "DocsURL": "https://github.com/gameDNAstudio/AmazonServices",
+  "MarketplaceURL": "",
+  "EngineVersion": "4.10.0",
+  "SupportURL": "mailto:support@gamednastudio.com",
+  "Modules": [
+    {
+      "Name": "AmazonServices",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "EnabledByDefault": false,
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "Installed": false
+}
