@@ -4,7 +4,7 @@
 
 The **Amazon Services** plugin lets you integrate out-of-the-box [Amazon Services](https://developer.amazon.com/public/apis/earn/in-app-purchasing) into your [Unreal Engine 4](http://www.unrealengine.com) project (compatible with Android).
 
-* **Current version:** 1.1
+* **Current version:** 1.2
 * **Binaries compiled for:** Unreal Engine 4.11.0
 * **Required Unreal Engine 4.11 or above.**
 
