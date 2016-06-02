@@ -38,7 +38,7 @@ namespace UnrealBuildTool.Rules
 			}
 
 			// Additional Frameworks and Libraries for Android
-			if (Target.Platform == UnrealTargetPlatform.Android && bEnableAmazonSupport)
+			if (Target.Platform == UnrealTargetPlatform.Android)
 			{
 				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, BuildConfiguration.RelativeEnginePath);
