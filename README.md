@@ -31,3 +31,5 @@ Edit *DefaultEngine.ini* config file and add following line to *[/Script/Android
 > bEnableAmazonSupport=True
 
 That's all! *Amazon Services* Online Subsystem works now! :)
+
+Plugin icon designed by _Freepik_.
