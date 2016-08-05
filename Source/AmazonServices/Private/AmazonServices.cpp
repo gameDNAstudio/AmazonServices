@@ -49,16 +49,16 @@ void FAmazonServicesModule::StartupModule()
 	AmazonServicesFactory = new FOnlineFactoryAmazonServices();
 
 	// Create and register our singleton factory with the main online subsystem for easy access
-	FOnlineSubsystemModule& OSS = FModuleManager::GetModuleChecked<FOnlineSubsystemModule>("OnlineSubsystem");
-	OSS.RegisterPlatformService(AMAZONSERVICES_SUBSYSTEM, AmazonServicesFactory);
+	FOnlineSubsystemModule* OSS = FModuleManager::GetModulePtr<FOnlineSubsystemModule>("OnlineSubsystem");
+	if(OSS) OSS->RegisterPlatformService(AMAZONSERVICES_SUBSYSTEM, AmazonServicesFactory);
 }
 
 void FAmazonServicesModule::ShutdownModule()
 {
 	UE_LOG(LogOnline, Log, TEXT("Amazon Shutdown!"));
 
-	FOnlineSubsystemModule& OSS = FModuleManager::GetModuleChecked<FOnlineSubsystemModule>("OnlineSubsystem");
-	OSS.UnregisterPlatformService(AMAZONSERVICES_SUBSYSTEM);
+	FOnlineSubsystemModule* OSS = FModuleManager::GetModulePtr<FOnlineSubsystemModule>("OnlineSubsystem");
+	if(OSS) OSS->UnregisterPlatformService(AMAZONSERVICES_SUBSYSTEM);
 
 	delete AmazonServicesFactory;
 	AmazonServicesFactory = NULL;
