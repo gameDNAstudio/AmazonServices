@@ -1,3 +1,5 @@
+# PLUGIN IS DEPRECATED
+
 ![Splash](Resources/Splash.png)
 
 # Amazon Services
